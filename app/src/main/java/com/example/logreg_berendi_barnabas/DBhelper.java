@@ -85,6 +85,10 @@ public class DBhelper extends SQLiteOpenHelper {
         return result.getCount() == 1;
     }
 
+    public static String getColNev() {
+        return COL_NEV;
+    }
+
     public boolean adatRogzites(String nev, String nick, String email, String jelszo) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

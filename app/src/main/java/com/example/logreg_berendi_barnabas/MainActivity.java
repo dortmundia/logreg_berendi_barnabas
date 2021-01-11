@@ -38,22 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 String nn=etnn.getText().toString().trim();;
                 String pw=etpw.getText().toString().trim();;
 
-
-                if (adatbazis.logWeMailEllenorzo(nn,pw) || adatbazis.logWNickEllenorzo(nn,pw))
-                {
-                    // Toast.makeText(this, "Sikeres bejelntkezés",Toast.LENGTH_SHORT).show();
-                    Intent masikActivityre = new Intent(MainActivity.this, LogActivity.class);
-                    startActivity(masikActivityre);
-                    finish();
-                }
-                else
-                {
-                    toastB();
-                    return;
-                }
-
-
-
                 if (nn.isEmpty())
                 {
                     toastNN();
@@ -66,6 +50,22 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+
+                if (adatbazis.logWeMailEllenorzo(nn,pw) || adatbazis.logWNickEllenorzo(nn,pw))
+                {
+                    String nev = adatbazis.getColNev();
+                    editor.putString("nev",nev);
+                    editor.commit();
+                    // Toast.makeText(this, "Sikeres bejelntkezés",Toast.LENGTH_SHORT).show();
+                    Intent masikActivityre = new Intent(MainActivity.this, LogActivity.class);
+                    startActivity(masikActivityre);
+                    finish();
+                }
+                else
+                {
+                    toastB();
+                    return;
+                }
 
             }
         });
@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
         etpw = findViewById(R.id.et_Jelszo);
         btnLog = findViewById(R.id.btn_LogIn);
         btnReg = findViewById(R.id.btn_Reg);
-        // sharedPref = getSharedPreferences("adatok", Context.MODE_PRIVATE);
-        //editor = sharedPref.edit();
+        sharedPref = getSharedPreferences("neved", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
 
         adatbazis= new DBhelper(MainActivity.this);
 

@@ -13,6 +13,7 @@ public class LogActivity extends AppCompatActivity {
     Button btnLogOut;
     SharedPreferences sharedPref;
     TextView txtUdv;
+    DBhelper adatbazis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,10 @@ public class LogActivity extends AppCompatActivity {
     private void init() {
         btnLogOut = findViewById(R.id.log_button_out);
         txtUdv = findViewById(R.id.log_txt_udv);
+        adatbazis= new DBhelper(LogActivity.this);
 
+        SharedPreferences prefs = getSharedPreferences("neved", MODE_PRIVATE);
+        String fullNev =  prefs.getString("nev", "Hiba");
+        txtUdv.setText("Üdvözöllek "+fullNev);
     }
 }
